@@ -46,7 +46,6 @@ class Teller(threading.Thread):
                 time.sleep(random.uniform(0.005, 0.03))
                 print(f"Teller {self.id}: Manager Done")
                 manager.release()
-
             print(f"Teller {self.id}: Going to Safe")
             bank_safe.acquire()
             print(f"Teller {self.id}: In Safe")
