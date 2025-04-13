@@ -68,3 +68,23 @@ class Customer(threading.Thread):
         self.transaction = random.choice(["Deposit", "Withdraw"])
         self.complete = threading.Semaphore(0)
         self.leave = threading.Semaphore(0)
+    def getTransaction(self):
+        print(f"Customer {self.id} [Teller {self.teller.id}]: gives transaction")
+        return self.transaction
+    
+    def run(self):
+        time.sleep(random.uniform(0, 0.1))
+        bank_door.acquire()
+        print(f"Customer {self.id} [Customer {self.id}]: enters bank")
+
+        teller_ready.acquire()
+        teller = teller_queue.get()
+        self.teller = teller
+        teller.customer = self
+        print(f"Customer {self.id} [Teller {teller.id}]: selects teller")
+        teller.customerAvailability.release()
+
+        self.complete.acquire()
+        print(f"Customer {self.id} [Teller {teller.id}]: leaving bank")
+        self.leave.release()
+        bank_door.release()
