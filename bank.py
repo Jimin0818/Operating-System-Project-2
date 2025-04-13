@@ -88,3 +88,20 @@ class Customer(threading.Thread):
         print(f"Customer {self.id} [Teller {teller.id}]: leaving bank")
         self.leave.release()
         bank_door.release()
+
+tellers_thread = [Teller(i) for i in range(tellers)]
+customers_thread = [Customer(i) for i in range(customers)]
+
+for t in tellers_thread:
+    t.start()
+for c in customers_thread:
+    c.start()
+for c in customers_thread:
+    c.join()
+
+for t in tellers_thread:
+    t.customer = None
+    t.customerAvailability.release()
+
+for t in tellers_thread:
+    t.join()
