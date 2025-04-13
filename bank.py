@@ -61,3 +61,10 @@ class Teller(threading.Thread):
                 numCustomerServed += 1
                 if numCustomerServed >= customers:
                     break
+class Customer(threading.Thread):
+    def __init__(self, cid):
+        super().__init__()
+        self.id = cid
+        self.transaction = random.choice(["Deposit", "Withdraw"])
+        self.complete = threading.Semaphore(0)
+        self.leave = threading.Semaphore(0)
