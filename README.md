@@ -3,7 +3,7 @@ Project 2 for CS 4348: Operating Systems
 
 The bank simulation involves 3 tellers and 50 customers. Customers enter the bank to perform either withdrawals or deposits, but the bank opens only when all tellers are ready. Shared resources such as the safe, manager, and bank door are controlled using semaphores. 
 
-#Simulation Details
+# Simulation Details
 Teller Behavior:
   * Announces readiness.
   * Waits for a customer to approach.
@@ -16,7 +16,7 @@ Teller Behavior:
   * Completes the transaction.
   * Waits for the customer to leave.
 
-#Customer Behavior:
+# Customer Behavior:
   * Randomly decides to perform a deposit or withdrawal.
   * Waits 0–100 ms before entering the bank.
   * Enters the bank (only two customers allowed through the door at a time).
